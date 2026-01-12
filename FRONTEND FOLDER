@@ -1,1 +1,37 @@
-frontend/.gitkeep
+<!DOCTYPE html>
+<html>
+<head>
+<title>MNYTube Cloud</title>
+</head>
+
+<body style="text-align:center; padding:40px;">
+
+<h1>MNYTube Cloud</h1>
+
+<input id="link" placeholder="Paste YouTube link">
+
+<br><br>
+
+<button onclick="sendLink()">Generate Shorts</button>
+
+<p id="result"></p>
+
+<script>
+function sendLink() {
+
+ let link = document.getElementById("link").value;
+
+ fetch("http://localhost:5000/generate", {
+   method: "POST",
+   headers: { "Content-Type": "application/json" },
+   body: JSON.stringify({ link: link })
+ })
+ .then(res => res.json())
+ .then(data => {
+   document.getElementById("result").innerText = data.message;
+ });
+}
+</script>
+
+</body>
+</html>
